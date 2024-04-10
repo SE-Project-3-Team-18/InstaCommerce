@@ -1,0 +1,3 @@
+[submodule "src/Notification-Service"]
+	path = src/Notification-Service
+	url = https://github.com/SE-Project-3-Team-18/Notification-Service.git

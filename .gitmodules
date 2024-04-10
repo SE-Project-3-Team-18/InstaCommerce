@@ -1,3 +1,6 @@
 [submodule "src/Notification-Service"]
 	path = src/Notification-Service
 	url = https://github.com/SE-Project-3-Team-18/Notification-Service.git
+[submodule "src/User-Management-Service"]
+	path = src/User-Management-Service
+	url = https://github.com/SE-Project-3-Team-18/User-Management-Service.git

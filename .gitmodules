@@ -7,3 +7,9 @@
 [submodule "src/Cart-Service"]
 	path = src/Cart-Service
 	url = https://github.com/SE-Project-3-Team-18/Cart-Service.git
+[submodule "src/Product-Service"]
+	path = src/Product-Service
+	url = https://github.com/SE-Project-3-Team-18/Product-Service.git
+[submodule "src/Order-Management-Service"]
+	path = src/Order-Management-Service
+	url = https://github.com/SE-Project-3-Team-18/Order-Management-Service.git

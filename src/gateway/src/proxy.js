@@ -5,10 +5,13 @@ const proxyServer = httpProxy.createProxyServer();
 
 const proxy = async (req, res, targetUrl) => {
   const promise = new Promise((resolve, reject) => {
+    req.url = '/'
+
     res.on('finish', () => {
       resolve()
     })
 
+    console.log(req.baseUrl, req.originalUrl, req.path, req.url, targetUrl)
     proxyServer.web(req, res, { target: targetUrl }, error => {
       const e = new CustomError(`Proxy Error ${error}`, 500, true)
       reject(e)

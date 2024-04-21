@@ -5,6 +5,7 @@ const cors = require('cors')
 const CustomLogger = require('./utils/logger')
 const { errorHandler } = require('./utils/error')
 const AuthRouter = require('./routes/auth')
+const ProfileRouter = require('./routes/profile')
 
 // Initialise instance of CustomLogger singleton service.
 CustomLogger.getInstance()
@@ -23,6 +24,7 @@ app.use('/api', (req, res, next) => {
   next()
 })
 app.use('/api/auth', AuthRouter)
+app.use('/api/profile', ProfileRouter)
 
 app.use('/api', errorHandler)
 

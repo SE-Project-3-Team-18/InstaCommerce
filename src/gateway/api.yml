@@ -203,6 +203,82 @@ paths:
                     type: string
         404:
           description: User not found
+  /notification:
+    get:
+      summary: Get notifications
+      description: Retrieves notifications for the current user
+      produces:
+        - application/json
+      security:
+        - BearerAuth: []
+      tags:
+        - Notification
+      responses:
+        200:
+          description: Successfully retrieved notifications
+          schema:
+            type: object
+            properties:
+              notifications:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    userId:
+                      type: string
+                      description: ID of the user who received the notification
+                    title:
+                      type: string
+                      description: Title of the notification
+                    info:
+                      type: string
+                      description: Additional information for the notification
+                    viewed:
+                      type: boolean
+                      description: Indicates if the notification has been viewed
+                    timeStamp:
+                      type: string
+                      format: date-time
+                      description: Timestamp when the notification was created
+        500:
+          description: Internal server error
+  /notification/read:
+    post:
+      summary: Mark a notification as viewed
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - BearerAuth: []
+      tags:
+        - Notification
+      parameters:
+        - name: notificationId
+          in: body
+          description: ID of the notification to mark as viewed
+          required: true
+          schema:
+            type: object
+            properties:
+              notificationId:
+                type: string
+      responses:
+        '200':
+          description: Notification marked as viewed successfully
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              message:
+                type: string
+                example: Notification read successfully
+        '400':
+          description: No notification found
+        '500':
+          description: Internal server error
 
 securityDefinitions:
   BearerAuth:

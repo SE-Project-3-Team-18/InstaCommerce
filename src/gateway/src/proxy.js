@@ -11,7 +11,6 @@ const proxy = async (req, res, targetUrl) => {
       resolve()
     })
 
-    console.log(req.baseUrl, req.originalUrl, req.path, req.url, targetUrl)
     proxyServer.web(req, res, { target: targetUrl }, error => {
       const e = new CustomError(`Proxy Error ${error}`, 500, true)
       reject(e)

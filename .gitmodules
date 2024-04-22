@@ -13,3 +13,6 @@
 [submodule "src/Order-Management-Service"]
 	path = src/Order-Management-Service
 	url = https://github.com/SE-Project-3-Team-18/Order-Management-Service.git
+[submodule "src/Reviews-Service"]
+	path = src/Reviews-Service
+	url = https://github.com/SE-Project-3-Team-18/Reviews-Ratings-Service.git

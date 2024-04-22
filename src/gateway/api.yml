@@ -1,0 +1,288 @@
+swagger: '2.0'
+info:
+  title: User Signup API
+  version: 1.0.0
+  description: API for user signup
+host: localhost:3000
+basePath: /api
+schemes:
+  - http
+paths:
+  /auth/signUp:
+    post:
+      summary: Sign up a new user
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Authentication
+      parameters:
+        - in: body
+          name: userData
+          description: User details
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: User's name
+              email:
+                type: string
+                format: email
+                description: User's email address
+              password:
+                type: string
+                format: password
+                description: User's password
+              age:
+                type: integer
+                description: User's age
+              gender:
+                type: string
+                enum: [male, female, other]
+                description: User's gender
+      responses:
+        '201':
+          description: User signed up successfully
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                description: Indicates if signup was successful
+              message:
+                type: string
+                description: Message indicating successful signup
+        '400':
+          description: Bad request. Invalid input data
+        '500':
+          description: Internal server error. Something went wrong
+  /auth/activate:
+    post:
+      summary: Activate user account
+      description: Activates a user account using email and OTP.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Authentication
+      parameters:
+        - name: body
+          in: body
+          description: Request body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+                description: Email address of the user.
+              otp:
+                type: string
+                description: One-time password sent to the user.
+      responses:
+        '200':
+          description: Account activated successfully
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                description: Indicates whether the operation was successful.
+                example: true
+              message:
+                type: string
+                description: A message indicating the result of the operation.
+                example: Account activated successfully
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden - Invalid OTP
+        '404':
+          description: Not Found - User not found
+
+  /auth/signIn:
+    post:
+      summary: Sign in to the application
+      description: Signs in a user using email and password.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Authentication
+      parameters:
+        - name: body
+          in: body
+          description: Request body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+                description: Email address of the user.
+              password:
+                type: string
+                description: User password.
+      responses:
+        '200':
+          description: Successful sign-in
+          schema:
+            type: object
+            properties:
+              userId:
+                type: string
+                description: ID of the signed-in user.
+                example: "123456"
+              role:
+                type: string
+                description: Role of the signed-in user.
+                example: "user"
+              email:
+                type: string
+                format: email
+                description: Email address of the signed-in user.
+                example: "user@example.com"
+              name:
+                type: string
+                description: Name of the signed-in user.
+                example: "John Doe"
+              activated:
+                type: boolean
+                description: Indicates whether the user account is activated.
+                example: true
+              token:
+                type: string
+                description: Authentication token for the signed-in user.
+                example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        '400':
+          description: Bad request - Mandatory fields missing
+        '401':
+          description: Unauthorized - Invalid credentials
+        '404':
+          description: Not Found - User not found
+
+  /profile:
+    get:
+      summary: Retrieve user profile
+      description: |
+        Retrieves the profile details of a user.
+      tags:
+        - Profile
+      security:
+        - BearerAuth: []
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              message:
+                type: string
+              details:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  creationDate:
+                    type: string
+                    format: date-time
+                  email:
+                    type: string
+                  age:
+                    type: integer
+                  gender:
+                    type: string
+        404:
+          description: User not found
+  /notification:
+    get:
+      summary: Get notifications
+      description: Retrieves notifications for the current user
+      produces:
+        - application/json
+      security:
+        - BearerAuth: []
+      tags:
+        - Notification
+      responses:
+        200:
+          description: Successfully retrieved notifications
+          schema:
+            type: object
+            properties:
+              notifications:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    userId:
+                      type: string
+                      description: ID of the user who received the notification
+                    title:
+                      type: string
+                      description: Title of the notification
+                    info:
+                      type: string
+                      description: Additional information for the notification
+                    viewed:
+                      type: boolean
+                      description: Indicates if the notification has been viewed
+                    timeStamp:
+                      type: string
+                      format: date-time
+                      description: Timestamp when the notification was created
+        500:
+          description: Internal server error
+  /notification/read:
+    post:
+      summary: Mark a notification as viewed
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      security:
+        - BearerAuth: []
+      tags:
+        - Notification
+      parameters:
+        - name: notificationId
+          in: body
+          description: ID of the notification to mark as viewed
+          required: true
+          schema:
+            type: object
+            properties:
+              notificationId:
+                type: string
+      responses:
+        '200':
+          description: Notification marked as viewed successfully
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              message:
+                type: string
+                example: Notification read successfully
+        '400':
+          description: No notification found
+        '500':
+          description: Internal server error
+
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: Use 'Bearer <token>' format

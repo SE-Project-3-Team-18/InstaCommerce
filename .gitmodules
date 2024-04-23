@@ -19,3 +19,6 @@
 [submodule "src/Seller-Service"]
 	path = src/Seller-Service
 	url = https://github.com/SE-Project-3-Team-18/Seller-Service.git
+[submodule "src/Payment-Service"]
+	path = src/Payment-Service
+	url = https://github.com/SE-Project-3-Team-18/Payment-Service.git

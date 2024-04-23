@@ -280,6 +280,48 @@ paths:
         '500':
           description: Internal server error
 
+  /cart/view:
+    get:
+      summary: View cart
+      description: Retrieves the current user's cart
+      produces:
+        - application/json
+      security:
+        - BearerAuth: []
+      tags:
+        - Cart
+      responses:
+        200:
+          description: Successfully retrieved cart
+          schema:
+            type: object
+            properties:
+              userId:
+                type: string
+              items:
+                type: array
+                items:
+                  $ref: '#/definitions/CartItem'
+              total:
+                type: number
+              modifiedOn:
+                type: string
+        404:
+          description: Cart not found
+definitions:
+  CartItem:
+    type: object
+    properties:
+      productId:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+      quantity:
+        type: number
+      imageUrl:
+        type: string
 securityDefinitions:
   BearerAuth:
     type: apiKey

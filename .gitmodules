@@ -22,3 +22,6 @@
 [submodule "src/Payment-Service"]
 	path = src/Payment-Service
 	url = https://github.com/SE-Project-3-Team-18/Payment-Service.git
+[submodule "src/Frontend"]
+	path = src/Frontend
+	url = https://github.com/SE-Project-3-Team-18/Frontend.git

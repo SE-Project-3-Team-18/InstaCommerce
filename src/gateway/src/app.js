@@ -29,7 +29,7 @@ app.use('/api', (req, res, next) => {
 app.use('/api/auth', AuthRouter)
 app.use('/api/profile', ProfileRouter)
 app.use('/api/notification', NotificationRouter)
-app.use('/api/product',ProductRouter)
+app.use('/api/product', ProductRouter)
 app.use('/api/cart', CartRouter)
 
 app.use('/api', errorHandler)

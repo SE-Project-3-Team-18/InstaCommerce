@@ -122,3 +122,5 @@ ProductRouter.put("/refund/:id", async (request, response, next) => {
     next(error);
   }
 });
+
+module.exports = ProductRouter;

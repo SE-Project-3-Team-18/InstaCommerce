@@ -51,6 +51,19 @@ const extractUserId = (req, res, next) => {
   next()
 }
 
+const extractSellerId = (req, res, next) => {
+  if (
+    !req.tokenPayload ||
+    !req.tokenPayload.sellerId
+  ) {
+    return sendUnauthorizedResponse(res, 'Unauthorized')
+  }
+
+  req.sellerId = req.tokenPayload.sellerId
+  req.headers['X-Seller-Id'] = req.sellerId
+  next()
+}
+
 const verifySeller = (req, res, next) => {
   if (req.tokenPayload.role !== 'seller') {
     return sendUnauthorizedResponse(res, 'Unauthorized')
@@ -64,4 +77,5 @@ module.exports = {
   extractToken,
   extractUserId,
   verifySeller,
+  extractSellerId,
 }

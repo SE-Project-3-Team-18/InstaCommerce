@@ -7,6 +7,7 @@ const { errorHandler } = require('./utils/error')
 const AuthRouter = require('./routes/auth')
 const ProfileRouter = require('./routes/profile')
 const NotificationRouter = require('./routes/notification')
+const ProductRouter = require('./routes/product')
 
 // Initialise instance of CustomLogger singleton service.
 CustomLogger.getInstance()
@@ -27,6 +28,7 @@ app.use('/api', (req, res, next) => {
 app.use('/api/auth', AuthRouter)
 app.use('/api/profile', ProfileRouter)
 app.use('/api/notification', NotificationRouter)
+app.use('/api/product',ProductRouter)
 
 app.use('/api', errorHandler)
 

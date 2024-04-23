@@ -16,3 +16,6 @@
 [submodule "src/Reviews-Service"]
 	path = src/Reviews-Service
 	url = https://github.com/SE-Project-3-Team-18/Reviews-Ratings-Service.git
+[submodule "src/Seller-Service"]
+	path = src/Seller-Service
+	url = https://github.com/SE-Project-3-Team-18/Seller-Service.git

@@ -9,6 +9,8 @@ const ProfileRouter = require('./routes/profile')
 const NotificationRouter = require('./routes/notification')
 const ProductRouter = require('./routes/product')
 const CartRouter = require('./routes/cart')
+const RatingRouter = require('./routes/rating')
+const PaymentRouter = require('./routes/payment')
 
 // Initialise instance of CustomLogger singleton service.
 CustomLogger.getInstance()
@@ -31,7 +33,8 @@ app.use('/api/profile', ProfileRouter)
 app.use('/api/notification', NotificationRouter)
 app.use('/api/product', ProductRouter)
 app.use('/api/cart', CartRouter)
-
+app.use('/api/product-ratings', RatingRouter)
+app.use('/api/payment',PaymentRouter)
 app.use('/api', errorHandler)
 
 module.exports = app

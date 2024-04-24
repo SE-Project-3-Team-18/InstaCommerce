@@ -11,6 +11,7 @@ const ProductRouter = require('./routes/product')
 const OrderRouter = require('./routes/order')
 const PaymentRouter = require('./routes/payment')
 const CartRouter = require('./routes/cart')
+const RatingRouter = require('./routes/rating')
 const SellerRouter = require('./routes/seller')
 
 // Initialise instance of CustomLogger singleton service.
@@ -36,6 +37,7 @@ app.use('/api/product', ProductRouter)
 app.use('/api/order', OrderRouter)
 app.use('/api/payment', PaymentRouter)
 app.use('/api/cart', CartRouter)
+app.use('/api/product-ratings', RatingRouter)
 app.use('/api/seller', SellerRouter)
 
 app.use('/api', errorHandler)

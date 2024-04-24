@@ -9,6 +9,7 @@ CartRouter.post('/add/:productId',
   extractUserId,
   async (req, res, next) => {
     try {
+      console.log("Headers",req.headers)
       const baseUrl = await ServiceRegistryClient.getUrl('Cart')
       const targetUrl = new URL(`/api/add/${req.params.productId}`, baseUrl).toString()
       await proxy(req, res, targetUrl)

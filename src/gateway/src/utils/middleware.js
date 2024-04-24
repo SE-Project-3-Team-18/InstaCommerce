@@ -19,33 +19,39 @@ function sendUnauthorizedResponse(res, message) {
 }
 
 const extractToken = (req, res, next) => {
+  // console.log("req.headers",req.headers);
   const authorizationHeader = req.headers.authorization
   if (!authorizationHeader) {
     return sendUnauthorizedResponse(res, 'Invalid/missing token')
   }
-
+  console.log("Authorization Header not null")
   const token = authorizationHeader
+  // console.log("token",token)
+  // console.log("Token object",token["token"])
   if (!token) {
+    console.log("token is empty");
     return sendUnauthorizedResponse(res, 'Invalid/missing token')
   }
-
+  console.log("Before JWT")
   try {
     const decodedToken = jwt.verify(token, jwtSecret)
     req.tokenPayload = decodedToken
+    console.log("Succesful extractToken");
     next()
   } catch (error) {
+    console.log("Failed JWT verification")
     return sendUnauthorizedResponse(res, 'Invalid/missing token')
   }
 }
 
 const extractUserId = (req, res, next) => {
+  // console.log("TokenPayload",req.tokenPayload)
   if (
     !req.tokenPayload ||
     !req.tokenPayload.userId
   ) {
     return sendUnauthorizedResponse(res, 'Unauthorized')
   }
-
   req.userId = req.tokenPayload.userId
   req.headers['X-User-Id'] = req.userId
   next()

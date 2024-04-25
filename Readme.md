@@ -31,3 +31,28 @@ Notification Service: Sends notifications to users about order status updates, p
 Reviews and Ratings Service: Manages customer reviews and ratings for products, as well as providing features like commenting and moderation.
 
 Seller Management Service: Handles all aspects related to managing sellers on the platform, including seller registration, verification, profile management, and commission calculations.
+
+## How to run the application:
+
+### Run service-registry 
+```
+cd src/service-registry
+npm i
+npm start
+```
+
+### Run gateway server
+```
+cd src/gateway
+npm i
+npm start
+```
+
+### Run frontend
+```
+cd src/Frontend
+npm i
+npm run dev
+```
+
+Open `http://localhost:5173/`

@@ -38,8 +38,9 @@ OrderRouter.post('/cancel/:orderId',
   extractUserId,
   async (req, res, next) => {
     try {
+      const orderId = req.params.orderId
       const baseUrl = await ServiceRegistryClient.getUrl('Order-Management')
-      const targetUrl = new URL('/api/order/cancel/:orderId', baseUrl).toString()
+      const targetUrl = new URL(`/api/order/cancel/${orderId}`, baseUrl).toString()
       await proxy(req, res, targetUrl)
     } catch (e) {
       next(e)
@@ -47,4 +48,15 @@ OrderRouter.post('/cancel/:orderId',
   }
 )
 
+OrderRouter.post('/update-status',
+  async (req, res, next) => {
+    try {
+      const baseUrl = await ServiceRegistryClient.getUrl('Order-Management')
+      const targetUrl = new URL('/api/for-agent/update-status', baseUrl).toString()
+      await proxy(req, res, targetUrl)
+    } catch (e) {
+      next(e)
+    }
+  }
+)
 module.exports = OrderRouter

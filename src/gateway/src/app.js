@@ -13,6 +13,7 @@ const PaymentRouter = require('./routes/payment')
 const CartRouter = require('./routes/cart')
 const RatingRouter = require('./routes/rating')
 const SellerRouter = require('./routes/seller')
+const { rateLimit } = require('express-rate-limit')
 
 // Initialise instance of CustomLogger singleton service.
 CustomLogger.getInstance()
@@ -30,6 +31,15 @@ app.use('/api', (req, res, next) => {
   console.log(req.originalUrl)
   next()
 })
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 minutes
+  limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+  standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+  // store: ... , // Redis, Memcached, etc. See below.
+})
+app.use(limiter)
+
 app.use('/api/auth', AuthRouter)
 app.use('/api/profile', ProfileRouter)
 app.use('/api/notification', NotificationRouter)

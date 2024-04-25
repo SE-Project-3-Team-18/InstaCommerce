@@ -97,11 +97,11 @@ ProductRouter.get("/filter/:category", async (request, response, next) => {
   }
 });
 
-ProductRouter.put("/buy/:id", async (request, response, next) => {
+ProductRouter.put("/buy", async (request, response, next) => {
   try {
     const baseUrl = await ServiceRegistryClient.getUrl("Product");
     const targetUrl = new URL(
-      `/api/product/buy/${request.params.id}`,
+      "/api/product/buy",
       baseUrl
     ).toString();
     await proxy(request, response, targetUrl);
@@ -110,11 +110,11 @@ ProductRouter.put("/buy/:id", async (request, response, next) => {
   }
 });
 
-ProductRouter.put("/refund/:id", async (request, response, next) => {
+ProductRouter.put("/refund", async (request, response, next) => {
   try {
     const baseUrl = await ServiceRegistryClient.getUrl("Product");
     const targetUrl = new URL(
-      `/api/product/refund/${request.params.id}`,
+      "/api/product/refund",
       baseUrl
     ).toString();
     await proxy(request, response, targetUrl);

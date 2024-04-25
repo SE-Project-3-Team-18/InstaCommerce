@@ -7,6 +7,7 @@ const {
   serviceAliveTimeout,
   serverPort,
 } = require('./config');
+const autoScaler = require('./autoScaler');
 
 const logger = winston.createLogger({
   level: 'info',
@@ -112,6 +113,8 @@ app.get('/discover/:serviceName', (req, res) => {
       });
   }
 
+  autoScaler.incrementUsage(serviceName)
+
   serviceIndexes[serviceName] = (serviceIndexes[serviceName] + 1) % allInstances.length
   const instance = services[serviceName][serviceIndexes[serviceName]]
 
@@ -138,6 +141,13 @@ setInterval(() => {
     })
   });
 }, serviceCheckFrequency);
+
+autoScaler.onStartUp()
+
+setInterval(() => {
+  autoScaler.checkAndScale(services)
+  autoScaler.resetCount()
+}, 20000)
 
 app.listen(port, () => {
   console.log(`Service registry listening at http://localhost:${port}`);
